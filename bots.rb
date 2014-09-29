@@ -8,24 +8,25 @@ require 'twitter_ebooks'
 Ebooks::Bot.new("mykola_ebooks") do |bot|
   # Consumer details come from registering an app at https://dev.twitter.com/
   # OAuth details can be fetched with https://github.com/marcel/twurl
-  bot.consumer_key = "" # Your app consumer key
-  bot.consumer_secret = "" # Your app consumer secret
-  bot.oauth_token = "" # Token connecting the app to this account
-  bot.oauth_token_secret = "" # Secret connecting the app to this account
+  bot.consumer_key = "WnpfDkHyVvo9snAvWd2jnKBef" # Your app consumer key
+  bot.consumer_secret = "JlkJ7I82wfuF7Tw05qCuDNGi3wOdIDasAlAt27tKiw69WRY2Vq" # Your app consumer secret
+  bot.oauth_token = "2793031960-fhHHx1UmTKeCdis9T3xKHhRz1fiNvRYdq3OOPJl" # Token connecting the app to this account
+  bot.oauth_token_secret = "I42BG9qfFXPemegFUfhoRPLsJZtome94ZWXBXGTmH8uNk" # Secret connecting the app to this account
 
   bot.on_message do |dm|
     # Reply to a DM
-    # bot.reply(dm, "secret secrets")
+    bot.reply(dm, "secret secrets")
   end
 
   bot.on_follow do |user|
     # Follow a user back
-    # bot.follow(user[:screen_name])
+    bot.follow(user[:screen_name])
   end
 
   bot.on_mention do |tweet, meta|
     # Reply to a mention
-    # bot.reply(tweet, meta[:reply_prefix] + "oh hullo")
+    model = Ebooks::Model.load("model/mykola.model");
+    bot.reply(tweet, meta[:reply_prefix] + model.make_reply(tweet[:text], 125))
   end
 
   bot.on_timeline do |tweet, meta|
@@ -33,9 +34,10 @@ Ebooks::Bot.new("mykola_ebooks") do |bot|
     # bot.reply(tweet, meta[:reply_prefix] + "nice tweet")
   end
 
-  bot.scheduler.every '24h' do
+  bot.scheduler.every '6h' do
     # Tweet something every 24 hours
     # See https://github.com/jmettraux/rufus-scheduler
-    # bot.tweet("hi")
+    model = Ebooks::Model.load("model/mykola.model");
+    bot.tweet(model.make_statement(140));
   end
 end
