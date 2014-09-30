@@ -8,10 +8,10 @@ require 'twitter_ebooks'
 Ebooks::Bot.new("mykola_ebooks") do |bot|
   # Consumer details come from registering an app at https://dev.twitter.com/
   # OAuth details can be fetched with https://github.com/marcel/twurl
-  bot.consumer_key = "WnpfDkHyVvo9snAvWd2jnKBef" # Your app consumer key
-  bot.consumer_secret = "JlkJ7I82wfuF7Tw05qCuDNGi3wOdIDasAlAt27tKiw69WRY2Vq" # Your app consumer secret
-  bot.oauth_token = "2793031960-fhHHx1UmTKeCdis9T3xKHhRz1fiNvRYdq3OOPJl" # Token connecting the app to this account
-  bot.oauth_token_secret = "I42BG9qfFXPemegFUfhoRPLsJZtome94ZWXBXGTmH8uNk" # Secret connecting the app to this account
+  bot.consumer_key = "D43RusoTf1sMum279UIxjBB3Q" # Your app consumer key
+  bot.consumer_secret = "refDx27gGtUBS0AutAFfn3GzcWL6Nx7i3B8n2gUcNv5WUFjUQd" # Your app consumer secret
+  bot.oauth_token = "2793031960-gxsE8K1HLUb9wvvooHj4I0UkCG9MwSzW37YKdkN" # Token connecting the app to this account
+  bot.oauth_token_secret = "ya1vWOWo7AIGkp1yDoIzXYgNk7KfdWUNiIjf3OuGfsxv4" # Secret connecting the app to this account
 
   bot.on_message do |dm|
     # Reply to a DM
@@ -26,7 +26,7 @@ Ebooks::Bot.new("mykola_ebooks") do |bot|
   bot.on_mention do |tweet, meta|
     # Reply to a mention
     model = Ebooks::Model.load("model/mykola.model");
-    bot.reply(tweet, meta[:reply_prefix] + model.make_reply(tweet[:text], 125))
+    bot.reply(tweet, meta[:reply_prefix] + model.make_statement(125))
   end
 
   bot.on_timeline do |tweet, meta|
